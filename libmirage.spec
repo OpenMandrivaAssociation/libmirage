@@ -32,6 +32,7 @@ URL:		http://cdemu.sourceforge.net/
 BuildRoot:	%{_tmppath}/%{name}-root
 BuildRequires:	gtk-doc
 BuildRequires:	bison
+BuildRequires:	flex
 BuildRequires:	sndfile-devel
 BuildRequires:	glib2-devel
 BuildRequires:	zlib-devel
