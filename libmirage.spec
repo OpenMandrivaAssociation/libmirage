@@ -1,6 +1,6 @@
 
-%define version 1.0.0
-%define snapshot 302
+%define version 1.1.1
+%define snapshot 0
 %define rel	1
 
 %define major	1
@@ -30,7 +30,7 @@ Group:		System/Libraries
 License:	GPLv2+
 URL:		http://cdemu.sourceforge.net/
 BuildRoot:	%{_tmppath}/%{name}-root
-BuildRequires:	gtk-doc
+#BuildRequires:	gtk-doc
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	sndfile-devel
@@ -116,8 +116,6 @@ rm -rf %{buildroot}
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
 %endif
 
@@ -137,6 +135,8 @@ rm -rf %{buildroot}
 %{_libdir}/libmirage.so
 %{_libdir}/libmirage.la
 %{_libdir}/pkgconfig/libmirage.pc
+%{_datadir}/mime/packages/libmirage-image*.xml
+%{_datadir}/gtk-doc/html/libmirage
 
 %files -n %staname
 %defattr(-,root,root)
