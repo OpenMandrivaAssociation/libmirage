@@ -26,6 +26,7 @@ Source:		%name-%snapshot.tar.bz2
 Release:	%mkrel %rel
 Source:		http://downloads.sourceforge.net/cdemu/%name-%version.tar.bz2
 %endif
+Patch:		libmirage-1.1.1-mdv-format-security.patch
 Group:		System/Libraries
 License:	GPLv2+
 URL:		http://cdemu.sourceforge.net/
@@ -99,6 +100,7 @@ Static libraries for developing static programs using libMirage.
 %else
 %setup -q
 %endif
+%patch -p1 -b .format-security
 
 %build
 %if %snapshot
