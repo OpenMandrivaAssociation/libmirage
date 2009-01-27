@@ -121,10 +121,18 @@ rm -rf %{buildroot}
 %postun -n %{libname} -p /sbin/ldconfig
 %endif
 
+%post -n %pluname
+%update_mime_database
+
+%postun -n %pluname
+%clean_mime_database
+
 %files -n %pluname
 %defattr(-,root,root)
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/*.so
+%{_datadir}/mime/packages/libmirage-image*.xml
+
 
 %files -n %libname
 %defattr(-,root,root)
