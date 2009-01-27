@@ -1,7 +1,7 @@
 
 %define version 1.1.1
 %define snapshot 0
-%define rel	1
+%define rel	2
 
 %define major	1
 %define libname	%mklibname mirage %major
@@ -31,7 +31,7 @@ Group:		System/Libraries
 License:	GPLv2+
 URL:		http://cdemu.sourceforge.net/
 BuildRoot:	%{_tmppath}/%{name}-root
-#BuildRequires:	gtk-doc
+
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	sndfile-devel
