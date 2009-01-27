@@ -145,7 +145,6 @@ rm -rf %{buildroot}
 %{_libdir}/libmirage.so
 %{_libdir}/libmirage.la
 %{_libdir}/pkgconfig/libmirage.pc
-%{_datadir}/mime/packages/libmirage-image*.xml
 %{_datadir}/gtk-doc/html/libmirage
 
 %files -n %staname
