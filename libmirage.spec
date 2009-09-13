@@ -1,7 +1,7 @@
 
 %define version 1.1.1
 %define snapshot 0
-%define rel	2
+%define rel	3
 
 %define major	1
 %define libname	%mklibname mirage %major
