@@ -1,32 +1,19 @@
+%define version 1.2.0
+%define rel	1
 
-%define version 1.1.1
-%define snapshot 0
-%define rel	3
-
-%define major	1
+%define major	2
 %define libname	%mklibname mirage %major
 %define pluname	%mklibname mirage-plugins
 %define devname	%mklibname mirage -d
 %define staname	%mklibname mirage -d -s
 
-%if 0
-# Update commands:
-REV=$(svn info https://cdemu.svn.sourceforge.net/svnroot/cdemu/trunk/libmirage| sed -ne 's/^Last Changed Rev: //p')
-svn export -r $REV https://cdemu.svn.sourceforge.net/svnroot/cdemu/trunk/libmirage libmirage-$REV
-tar -cjf libmirage-$REV.tar.bz2 libmirage-$REV
-%endif
-
 Name:		libmirage
 Version:	%version
 Summary:	CD-ROM image access library
-%if %snapshot
-Release:	%mkrel 1.svn%snapshot.%rel
-Source:		%name-%snapshot.tar.bz2
-%else
 Release:	%mkrel %rel
 Source:		http://downloads.sourceforge.net/cdemu/%name-%version.tar.bz2
-%endif
-Patch:		libmirage-1.1.1-mdv-format-security.patch
+Patch0:		libmirage-1.2.0-mdv-format-security.patch
+Patch1:		libmirage-1.2.0-linkage.patch
 Group:		System/Libraries
 License:	GPLv2+
 URL:		http://cdemu.sourceforge.net/
@@ -37,6 +24,7 @@ BuildRequires:	flex
 BuildRequires:	sndfile-devel
 BuildRequires:	glib2-devel
 BuildRequires:	zlib-devel
+BuildRequires:	gtk-doc
 
 %description
 The aim of libMirage is to provide uniform access to the data stored in
@@ -95,23 +83,20 @@ Requires:	%{devname} = %{version}-%{release}
 Static libraries for developing static programs using libMirage.
 
 %prep
-%if %snapshot
-%setup -q -n %name-%snapshot
-%else
 %setup -q
-%endif
-%patch -p1 -b .format-security
+%patch0 -p0 -b .format-security
+%patch1 -p0 -b .link
 
 %build
-%if %snapshot
-./autogen.sh
-%endif
+autoreconf -fi
 %configure2_5x
 %make
 
 %install
 rm -rf %buildroot
 %makeinstall_std
+
+rm -f %{buildroot}/%{_libdir}/%{name}*/{*.la,*.a}
 
 %clean
 rm -rf %{buildroot}
@@ -129,10 +114,8 @@ rm -rf %{buildroot}
 
 %files -n %pluname
 %defattr(-,root,root)
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/*.so
+%{_libdir}/%{name}-1.2
 %{_datadir}/mime/packages/libmirage-image*.xml
-
 
 %files -n %libname
 %defattr(-,root,root)
@@ -141,7 +124,7 @@ rm -rf %{buildroot}
 %files -n %devname
 %defattr(-,root,root)
 %doc README AUTHORS
-%{_includedir}/libmirage*
+%{_includedir}/libmirage
 %{_libdir}/libmirage.so
 %{_libdir}/libmirage.la
 %{_libdir}/pkgconfig/libmirage.pc
@@ -150,5 +133,3 @@ rm -rf %{buildroot}
 %files -n %staname
 %defattr(-,root,root)
 %{_libdir}/libmirage.a
-%{_libdir}/%{name}/*.a
-%{_libdir}/%{name}/*.la
