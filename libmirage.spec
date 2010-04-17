@@ -1,5 +1,5 @@
 %define version 1.2.0
-%define rel	1
+%define rel	2
 
 %define major	2
 %define libname	%mklibname mirage %major
@@ -86,6 +86,18 @@ Static libraries for developing static programs using libMirage.
 %setup -q
 %patch0 -p0 -b .format-security
 %patch1 -p0 -b .link
+
+# See bug #58086
+# The mirage defined mime types shadow the fd.o mimetypes, defining an alias
+# to the standard name. For example, *.iso files get classified as
+# "application/libmirage-iso". The mirage .xml file does define an alias
+# "application/x-cd-image". However, the fd.o shared-mime-info specification
+# forbids having aliases that conflict with mimetypes defined elsewhere. 
+# Therefore at least KDE ignores such aliases, causing .iso and .cue pointing
+# to the libmirage mime types only.
+# For now, lessen the priorities and weights of libmirage definitions so that
+# fd.o provided mimetype definitions take priority. - Anssi 04/2010
+sed -i -e 's,priority="50",priority="48",' -e 's,glob pattern,glob weight="48" pattern,' src/parsers/*/libmirage-image-*.xml
 
 %build
 autoreconf -fi
