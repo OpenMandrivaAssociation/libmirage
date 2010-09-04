@@ -1,17 +1,15 @@
-%define version 1.2.0
-%define rel	2
+%define version 1.3.0
+%define rel	1
 
-%define major	2
+%define major	3
 %define libname	%mklibname mirage %major
-%define pluname	%mklibname mirage-plugins
 %define devname	%mklibname mirage -d
-%define staname	%mklibname mirage -d -s
 
 Name:		libmirage
 Version:	%version
 Summary:	CD-ROM image access library
 Release:	%mkrel %rel
-Source:		http://downloads.sourceforge.net/cdemu/%name-%version.tar.bz2
+Source:		http://downloads.sourceforge.net/cdemu/%name-%version.tar.gz
 Patch0:		libmirage-1.2.0-mdv-format-security.patch
 Patch1:		libmirage-1.2.0-linkage.patch
 Group:		System/Libraries
@@ -37,17 +35,20 @@ instance, ISO image provides only user data from sector, without sync pattern,
 header, ECC/EDC codes or subchannel. When this missing data is requested,
 libMirage will transparently generate it.
 
-%package -n %pluname
-Summary:	CD-ROM image access library - shared plugins
+%package common
+Summary:	CD-ROM image access library - common files
 Group:		System/Libraries
+Obsoletes:	%{_lib}mirage-plugins < 1.3.0
+# to ease upgrades (old libmirageX depend on this):
+Provides:	%{_lib}mirage-plugins = %{version}
 
-%description -n %pluname
+%description common
 Image access plugins for libMirage.
 
 %package -n %libname
 Summary:	CD-ROM image access library - shared library
 Group:		System/Libraries
-Requires:	%pluname >= %{version}-%{release}
+Requires:	%{name}-common >= %{version}-%{release}
 
 %description -n %libname
 Shared libraries of libMirage for software using it.
@@ -58,6 +59,8 @@ Group:		Development/C
 Provides:	%{name}-devel = %{version}-%{release}
 Provides:	mirage-devel = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
+# to ease upgrade - in reality the static lib was dropped
+Obsoletes:	%{_lib}mirage-static-devel
 
 %description -n %devname
 Development headers for developing software using libMirage.
@@ -71,16 +74,6 @@ of generating some of the data that might not be present in image file. For
 instance, ISO image provides only user data from sector, without sync pattern,
 header, ECC/EDC codes or subchannel. When this missing data is requested,
 libMirage will transparently generate it.
-
-%package -n %staname
-Summary:	CD-ROM image access library - static libraries
-Group:		Development/C
-Provides:	%{name}-static-devel = %{version}-%{release}
-Provides:	mirage-static-devel = %{version}-%{release}
-Requires:	%{devname} = %{version}-%{release}
-
-%description -n %staname
-Static libraries for developing static programs using libMirage.
 
 %prep
 %setup -q
@@ -101,7 +94,7 @@ sed -i -e 's,priority="50",priority="48",' -e 's,glob pattern,glob weight="48" p
 
 %build
 autoreconf -fi
-%configure2_5x
+%configure2_5x --with-plugin-dir=%{_libdir}/%{name}-%{major} --disable-static
 %make
 
 %install
@@ -113,24 +106,13 @@ rm -f %{buildroot}/%{_libdir}/%{name}*/{*.la,*.a}
 %clean
 rm -rf %{buildroot}
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%post -n %pluname
-%update_mime_database
-
-%postun -n %pluname
-%clean_mime_database
-
-%files -n %pluname
+%files common
 %defattr(-,root,root)
-%{_libdir}/%{name}-1.2
 %{_datadir}/mime/packages/libmirage-image*.xml
 
 %files -n %libname
 %defattr(-,root,root)
+%{_libdir}/%{name}-%{major}
 %{_libdir}/libmirage.so.%{major}*
 
 %files -n %devname
@@ -142,6 +124,3 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/libmirage.pc
 %{_datadir}/gtk-doc/html/libmirage
 
-%files -n %staname
-%defattr(-,root,root)
-%{_libdir}/libmirage.a
