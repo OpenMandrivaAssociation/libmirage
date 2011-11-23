@@ -1,4 +1,4 @@
-%define version 1.3.0
+%define version 1.4.0
 %define rel	1
 
 %define major	3
@@ -11,7 +11,6 @@ Summary:	CD-ROM image access library
 Release:	%mkrel %rel
 Source:		http://downloads.sourceforge.net/cdemu/%name-%version.tar.gz
 Patch0:		libmirage-1.2.0-mdv-format-security.patch
-Patch1:		libmirage-1.2.0-linkage.patch
 Group:		System/Libraries
 License:	GPLv2+
 URL:		http://cdemu.sourceforge.net/
@@ -77,8 +76,7 @@ libMirage will transparently generate it.
 
 %prep
 %setup -q
-%patch0 -p0 -b .format-security
-%patch1 -p0 -b .link
+%patch0 -p1 -b .format-security
 
 # See bug #58086
 # The mirage defined mime types shadow the fd.o mimetypes, defining an alias
