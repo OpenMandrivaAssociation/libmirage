@@ -1,20 +1,18 @@
-%define version 1.4.0
+%define version 1.5.0
 %define rel	1
 
-%define major	3
+%define major	6
 %define libname	%mklibname mirage %major
 %define devname	%mklibname mirage -d
 
 Name:		libmirage
 Version:	%version
 Summary:	CD-ROM image access library
-Release:	%mkrel %rel
-Source:		http://downloads.sourceforge.net/cdemu/%name-%version.tar.gz
-Patch0:		libmirage-1.2.0-mdv-format-security.patch
+Release:	%rel
+Source0:	http://downloads.sourceforge.net/cdemu/%name-%version.tar.bz2
 Group:		System/Libraries
 License:	GPLv2+
 URL:		http://cdemu.sourceforge.net/
-BuildRoot:	%{_tmppath}/%{name}-root
 
 BuildRequires:	bison
 BuildRequires:	flex
@@ -76,8 +74,6 @@ libMirage will transparently generate it.
 
 %prep
 %setup -q
-%patch0 -p1 -b .format-security
-
 # See bug #58086
 # The mirage defined mime types shadow the fd.o mimetypes, defining an alias
 # to the standard name. For example, *.iso files get classified as
@@ -96,29 +92,21 @@ autoreconf -fi
 %make
 
 %install
-rm -rf %buildroot
 %makeinstall_std
 
 rm -f %{buildroot}/%{_libdir}/%{name}*/{*.la,*.a}
 
-%clean
-rm -rf %{buildroot}
-
 %files common
-%defattr(-,root,root)
 %{_datadir}/mime/packages/libmirage-image*.xml
 
 %files -n %libname
-%defattr(-,root,root)
 %{_libdir}/%{name}-%{major}
 %{_libdir}/libmirage.so.%{major}*
 
 %files -n %devname
-%defattr(-,root,root)
 %doc README AUTHORS
 %{_includedir}/libmirage
 %{_libdir}/libmirage.so
-%{_libdir}/libmirage.la
 %{_libdir}/pkgconfig/libmirage.pc
 %{_datadir}/gtk-doc/html/libmirage
 
