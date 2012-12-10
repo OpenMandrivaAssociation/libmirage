@@ -110,3 +110,52 @@ rm -f %{buildroot}/%{_libdir}/%{name}*/{*.la,*.a}
 %{_libdir}/pkgconfig/libmirage.pc
 %{_datadir}/gtk-doc/html/libmirage
 
+
+
+%changelog
+* Mon Jan 23 2012 Alexander Khrukin <akhrukin@mandriva.org> 1.5.0-1
++ Revision: 767431
+- version update 1.5.0
+
+* Wed Nov 23 2011 Alexander Khrukin <akhrukin@mandriva.org> 1.4.0-1
++ Revision: 732831
+- version update to 1.4.0
+
+* Sat Sep 04 2010 Anssi Hannula <anssi@mandriva.org> 1.3.0-1mdv2011.0
++ Revision: 575728
+- new version
+- drop static library
+- move plugins to main library package, to a major-specific directory
+- add common subpackage for mimetype files
+- remove old compatibility cruft
+
+* Sat Apr 17 2010 Anssi Hannula <anssi@mandriva.org> 1.2.0-2mdv2010.1
++ Revision: 536052
+- lower the priorities and weights of mimetype definitions, preferring
+  the fd.o defined types over libmirage ones (fixes #58086)
+
+* Thu Dec 03 2009 Funda Wang <fwang@mandriva.org> 1.2.0-1mdv2010.1
++ Revision: 472891
+- really rediff patch
+- New version 1.2.0
+
+  + Ahmad Samir <ahmadsamir@mandriva.org>
+    - rediff patch1
+
+* Sun Sep 13 2009 Thierry Vignaud <tv@mandriva.org> 1.1.1-3mdv2010.0
++ Revision: 438712
+- rebuild
+
+* Tue Jan 27 2009 Guillaume Bedot <littletux@mandriva.org> 1.1.1-2mdv2009.1
++ Revision: 334081
+- bump rel, re-submit
+- move mime types to the plugins' package
+- Release 1.1.1
+
+  + Pixel <pixel@mandriva.com>
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+* Wed Apr 23 2008 Anssi Hannula <anssi@mandriva.org> 1.0.0-1.svn302.1mdv2009.0
++ Revision: 196922
+- initial Mandriva release
+
