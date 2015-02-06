@@ -8,7 +8,7 @@
 Summary:	CD-ROM image access library
 Name:		libmirage
 Version:	2.1.1
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Libraries
 Source0:	http://downloads.sourceforge.net/cdemu/%{name}-%{version}.tar.bz2
