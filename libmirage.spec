@@ -7,8 +7,8 @@
 
 Summary:	CD-ROM image access library
 Name:		libmirage
-Version:	2.1.1
-Release:	2
+Version:	3.2.2
+Release:	1
 License:	GPLv2+
 Group:		System/Libraries
 Source0:	http://downloads.sourceforge.net/cdemu/%{name}-%{version}.tar.bz2
@@ -122,8 +122,8 @@ sed -i -e 's,priority="50",priority="48",' -e 's,glob pattern,glob weight="48" p
 
 %build
 %cmake -DPOST_INSTALL_HOOKS:BOOL=OFF
-%make
+%make_build
 
 %install
-%makeinstall_std -C build
+%make_install -C build
 
