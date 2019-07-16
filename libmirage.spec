@@ -1,14 +1,14 @@
-%define		major 9
-%define		api_version 2.1
-%define		gir_major 2.1
+%define		major 11
+%define		api_version 3.2
+%define		gir_major 3.2
 %define		libname %mklibname mirage %{major}
 %define		devname %mklibname mirage -d
 %define		girname %mklibname mirage-gir %{gir_major}
 
 Summary:	CD-ROM image access library
 Name:		libmirage
-Version:	2.1.1
-Release:	2
+Version:	3.2.2
+Release:	1
 License:	GPLv2+
 Group:		System/Libraries
 Source0:	http://downloads.sourceforge.net/cdemu/%{name}-%{version}.tar.bz2
@@ -24,6 +24,7 @@ BuildRequires:	pkgconfig(liblzma)
 BuildRequires:	pkgconfig(samplerate)
 BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	intltool
 
 %description
 The aim of libMirage is to provide uniform access to the data stored in
@@ -47,6 +48,7 @@ Image access plugins for libMirage.
 
 %files common
 %{_datadir}/mime/packages/libmirage-*.xml
+%{_datadir}/locale/*/LC_MESSAGES/libmirage.mo
 
 #----------------------------------------------------------------------------
 
@@ -85,10 +87,10 @@ libMirage will transparently generate it.
 
 %files -n %{devname}
 %doc README AUTHORS
-%{_includedir}/%{name}
+%{_includedir}/%{name}-%{api_version}
 %{_libdir}/libmirage.so
 %{_libdir}/pkgconfig/libmirage.pc
-%{_datadir}/gir-1.0/libMirage-%{gir_major}.gir
+%{_datadir}/gir-1.0/Mirage-%{gir_major}.gir
 %{_datadir}/gtk-doc/html/libmirage
 
 #----------------------------------------------------------------------------
@@ -101,12 +103,12 @@ Group:		System/Libraries
 GObject Introspection interface description for %{name}.
 
 %files -n %{girname}
-%{_libdir}/girepository-1.0/libMirage-%{gir_major}.typelib
+%{_libdir}/girepository-1.0/Mirage-%{gir_major}.typelib
 
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q
+%autosetup -p1
 
 # See Mandriva bug #58086
 # The mirage defined mime types shadow the fd.o mimetypes, defining an alias
@@ -118,12 +120,12 @@ GObject Introspection interface description for %{name}.
 # to the libmirage mime types only.
 # For now, lessen the priorities and weights of libmirage definitions so that
 # fd.o provided mimetype definitions take priority. - Anssi 04/2010
-sed -i -e 's,priority="50",priority="48",' -e 's,glob pattern,glob weight="48" pattern,' src/parsers/*/libmirage-*.xml
+#sed -i -e 's,priority="50",priority="48",' -e 's,glob pattern,glob weight="48" pattern,' %{buildroot}%{_datadir}/mime/packages/libmirage-*.xml
 
 %build
 %cmake -DPOST_INSTALL_HOOKS:BOOL=OFF
-%make
+%make_build
 
 %install
-%makeinstall_std -C build
+%make_install -C build
 
