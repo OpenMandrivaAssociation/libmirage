@@ -1,6 +1,6 @@
-%define		major 9
-%define		api_version 2.1
-%define		gir_major 2.1
+%define		major 11
+%define		api_version 3.2
+%define		gir_major 3.2
 %define		libname %mklibname mirage %{major}
 %define		devname %mklibname mirage -d
 %define		girname %mklibname mirage-gir %{gir_major}
@@ -24,6 +24,7 @@ BuildRequires:	pkgconfig(liblzma)
 BuildRequires:	pkgconfig(samplerate)
 BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	intltool
 
 %description
 The aim of libMirage is to provide uniform access to the data stored in
@@ -106,7 +107,7 @@ GObject Introspection interface description for %{name}.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q
+%autosetup -p1
 
 # See Mandriva bug #58086
 # The mirage defined mime types shadow the fd.o mimetypes, defining an alias
