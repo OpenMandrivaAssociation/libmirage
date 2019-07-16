@@ -86,10 +86,10 @@ libMirage will transparently generate it.
 
 %files -n %{devname}
 %doc README AUTHORS
-%{_includedir}/%{name}
+%{_includedir}/%{name}-%{api_version}
 %{_libdir}/libmirage.so
 %{_libdir}/pkgconfig/libmirage.pc
-%{_datadir}/gir-1.0/libMirage-%{gir_major}.gir
+%{_datadir}/gir-1.0/Mirage-%{gir_major}.gir
 %{_datadir}/gtk-doc/html/libmirage
 
 #----------------------------------------------------------------------------
@@ -102,7 +102,7 @@ Group:		System/Libraries
 GObject Introspection interface description for %{name}.
 
 %files -n %{girname}
-%{_libdir}/girepository-1.0/libMirage-%{gir_major}.typelib
+%{_libdir}/girepository-1.0/Mirage-%{gir_major}.typelib
 
 #----------------------------------------------------------------------------
 
