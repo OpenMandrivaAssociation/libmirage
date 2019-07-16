@@ -118,7 +118,7 @@ GObject Introspection interface description for %{name}.
 # to the libmirage mime types only.
 # For now, lessen the priorities and weights of libmirage definitions so that
 # fd.o provided mimetype definitions take priority. - Anssi 04/2010
-sed -i -e 's,priority="50",priority="48",' -e 's,glob pattern,glob weight="48" pattern,' src/parsers/*/libmirage-*.xml
+#sed -i -e 's,priority="50",priority="48",' -e 's,glob pattern,glob weight="48" pattern,' src/parsers/*/libmirage-*.xml
 
 %build
 %cmake -DPOST_INSTALL_HOOKS:BOOL=OFF
