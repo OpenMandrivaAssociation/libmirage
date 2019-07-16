@@ -48,6 +48,7 @@ Image access plugins for libMirage.
 
 %files common
 %{_datadir}/mime/packages/libmirage-*.xml
+%{_datadir}/locale/*/LC_MESSAGES/libmirage.mo
 
 #----------------------------------------------------------------------------
 
