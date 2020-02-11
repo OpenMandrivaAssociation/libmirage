@@ -7,7 +7,7 @@
 
 Summary:	CD-ROM image access library
 Name:		libmirage
-Version:	3.2.3
+Version:	3.2.4
 Release:	1
 License:	GPLv2+
 Group:		System/Libraries
