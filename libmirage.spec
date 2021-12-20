@@ -7,11 +7,11 @@
 
 Summary:	CD-ROM image access library
 Name:		libmirage
-Version:	3.2.4
+Version:	3.2.6
 Release:	1
 License:	GPLv2+
 Group:		System/Libraries
-Source0:	http://downloads.sourceforge.net/cdemu/%{name}-%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/cdemu/%{name}-%{version}.tar.xz
 Url:		http://cdemu.sourceforge.net/
 BuildRequires:	bison
 BuildRequires:	flex
