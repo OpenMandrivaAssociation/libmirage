@@ -12,7 +12,7 @@ Release:	1
 License:	GPLv2+
 Group:		System/Libraries
 Source0:	http://downloads.sourceforge.net/cdemu/%{name}-%{version}.tar.xz
-Url:		http://cdemu.sourceforge.net/
+Url:		https://cdemu.sourceforge.net/
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	cmake
