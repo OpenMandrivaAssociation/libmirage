@@ -1,6 +1,6 @@
-%define		major 11
-%define		api_version 3.2
-%define		gir_major 3.2
+%define		major 12
+%define		api_version 3.3
+%define		gir_major 3.3
 %define		libname %mklibname mirage %{major}
 %define		devname %mklibname mirage -d
 %define		girname %mklibname mirage-gir %{gir_major}
