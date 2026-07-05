@@ -16,6 +16,7 @@ Url:		https://cdemu.sourceforge.net/
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	cmake
+BuildRequires:  make
 BuildRequires:	bzip2-devel
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
